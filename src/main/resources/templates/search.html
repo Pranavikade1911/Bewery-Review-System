@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- ... (existing head content) ... -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Search Breweries</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            /* Light Gray */
+        }
+
+        .container {
+            background-color: #ffffff;
+            /* White */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #007bff;
+            /* Blue */
+        }
+
+        label {
+            color: #495057;
+            /* Dark Gray */
+        }
+
+        .form-control {
+            border: 1px solid #ced4da;
+            /* Light Gray */
+        }
+
+        button {
+            background-color: #007bff;
+            /* Blue */
+            color: #ffffff;
+            /* White */
+        }
+
+        table {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #dee2e6;
+            /* Light Gray */
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            /* Blue */
+            color: #ffffff;
+            /* White */
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+            /* Light Gray */
+        }
+
+        #searchResults {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Search Breweries</h2>
+        <!-- Search Form -->
+        <form id="searchForm" th:action="@{/search}" method="get">
+            <div class="form-group">
+                <label for="searchCity">Search by City:</label>
+                <input type="text" class="form-control" id="searchCity" name="searchCity" th:value="${searchCity}">
+            </div>
+            <div class="form-group">
+                <label for="searchName">Search by Name:</label>
+                <input type="text" class="form-control" id="searchName" name="searchName" th:value="${searchName}">
+            </div>
+            <div class="form-group">
+                <label for="searchType">Search by Type:</label>
+                <input type="text" class="form-control" id="searchType" name="searchType" th:value="${searchType}">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <hr>
+        <!-- Search Results -->
+        <div id="searchResults">
+            <h3>Search Results</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Brewery Name</th>
+                        <th>Address</th>
+                        <th>Phone Number</th>
+                        <th>Website URL</th>
+                        <!-- You need to calculate the rating based on point no. 4 -->
+                        <th>Current Rating</th>
+                        <th>State, City</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loop through search results and display details -->
+                    <tr th:each="brewery : ${breweries}">
+                        <td th:text="${brewery.name}"></td>
+                        <td th:text="${brewery.address}"></td>
+                        <td th:text="${brewery.phone}"></td>
+                        <td th:text="${brewery.website_url}"></td>
+                        <!-- You need to calculate the rating based on point no. 4 -->
+                        <td th:text="${brewery.currentRating}"></td>
+                        <td th:text="${brewery.state + ', ' + brewery.city}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Bootstrap JS and other scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- Your custom scripts -->
+    <script src="path/to/your/custom/script.js"></script>
+</body>
+
+</html>
